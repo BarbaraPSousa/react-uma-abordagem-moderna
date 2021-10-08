@@ -3,21 +3,22 @@ import { Button, TextField, Switch, FormControlLabel } from '@material-ui/core/'
 
 function FormularioCadastro() {
   const [nome, setNome] = useState('')
-
+  const [sobreNome, setSobreNome] = useState('')
   return (
     <form
       onSubmit={event => {
         event.preventDefault()
-        console.log(nome)
+        console.log(nome, sobreNome)
       }}
     >
       <TextField
         value={nome}
         onChange={event => {
-          setNome = event.target.value
-          if (nome.length > 3) {
-            setNome = nome.substring(0, 3)
+          let tmpNome = event.target.value
+          if (tmpNome.length >= 3) {
+            tmpNome = tmpNome.substring(0, 3)
           }
+          setNome(tmpNome)
         }}
         id="nome"
         label="Nome"
@@ -25,7 +26,12 @@ function FormularioCadastro() {
         margin="normal"
         fullWidth
       />
+
       <TextField
+        value={sobreNome}
+        onChange={event => {
+          setSobreNome(event.target.value)
+        }}
         id="sobreNome"
         label="SobreNome"
         variant="outlined"
