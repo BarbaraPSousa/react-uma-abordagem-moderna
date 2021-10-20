@@ -8,7 +8,6 @@ function DadosUsuario() {
         id="email"
         label="email"
         type="email"
-        label="SobreNome"
         variant="outlined"
         margin="normal"
         fullWidth
@@ -17,7 +16,6 @@ function DadosUsuario() {
         id="senha"
         label="senha"
         type="password"
-        label="SobreNome"
         variant="outlined"
         margin="normal"
         fullWidth
