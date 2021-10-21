@@ -9,10 +9,10 @@ function FormularioCadastro({ aoEnviar, validarCpf }) {
   const formularios = [
     <DadosUsuario aoEnviar={proximo} />,
     <DadosPessoais aoEnviar={proximo} validarCpf={validarCpf} />,
-    <DadosEntrega aoEnviar={proximo} />
+    <DadosEntrega aoEnviar={aoEnviar} />
   ]
 
-  function proximo() {
+  function proximo(dados) {
     setEtapaAtual(etapaAtual + 1)
   }
 
