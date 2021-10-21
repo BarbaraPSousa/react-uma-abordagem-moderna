@@ -5,16 +5,20 @@ import DadosPessoais from './DadosPessoais'
 import DadosUsuario from './DadosUsuarios'
 
 function FormularioCadastro({ aoEnviar, validarCpf }) {
-  const [etapaAtual, setEtapaAtual] = useState(1)
+  const [etapaAtual, setEtapaAtual] = useState(0)
+
+  function proximo() {
+    setEtapaAtual(etapaAtual + 1)
+  }
 
   function formularioAtual(etapa) {
     switch (etapa) {
       case 0:
-        return <DadosUsuario />
+        return <DadosUsuario aoEnviar={proximo} />
       case 1:
-        return <DadosPessoais aoEnviar={aoEnviar} validarCpf={validarCpf} />
+        return <DadosPessoais aoEnviar={proximo} validarCpf={validarCpf} />
       case 2:
-        return <DadosEntrega />
+        return <DadosEntrega aoEnviar={proximo} />
       default:
         return <typography>Error ao seleciona Formulário</typography>
     }
