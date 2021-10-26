@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
 function useErros(validacoes) {
- const estadoInicial = criarEstadoInicial(validacoes)
+  const estadoInicial = criarEstadoInicial(validacoes)
   const [erros, setErros] = useState(estadoInicial)
 
   function validarCampos(event) {
@@ -10,17 +10,23 @@ function useErros(validacoes) {
     novoEstado[name] = validacoes[name](value)
     setErros(novoEstado)
   }
-  return [erros, validarCampos]
+  function possoEnviar() {
+    for (let campo in erros) {
+      if (!erros[campo].valido) {
+        return false
+      }
+    }
+    return true
+  }
+  return [erros, validarCampos, possoEnviar]
 }
 
-
-function criarEstadoInicial(validacoes){
-  const estadoInicial =  {}
-  for(let camp in validacoes){
-    estadoInicial[camp] = { valido:true, texto:""}
+function criarEstadoInicial(validacoes) {
+  const estadoInicial = {}
+  for (let camp in validacoes) {
+    estadoInicial[camp] = { valido: true, texto: '' }
   }
   return estadoInicial
 }
-
 
 export default useErros
