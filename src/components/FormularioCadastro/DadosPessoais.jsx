@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { Button, TextField, Switch, FormControlLabel } from '@material-ui/core/'
+import ValidacoesCadastro from '../../contexts/ValidacoesCadastro'
 
-export function DadosPessoais({ aoEnviar, validacoes }) {
+export function DadosPessoais({ aoEnviar }) {
   const [nome, setNome] = useState('')
   const [sobreNome, setSobreNome] = useState('')
   const [cpf, setCpf] = useState('')
@@ -12,7 +13,7 @@ export function DadosPessoais({ aoEnviar, validacoes }) {
     cpf: { valido: true, texto: '' },
     nome: { valido: true, texto: '' }
   })
-
+  const validacoes = useContext(ValidacoesCadastro)//utilizando o contexto de validações
   function validarCampos(event) {
     const { name, value } = event.target
     const novoEstado = { ...erros }
