@@ -1,20 +1,37 @@
 import React, { useState } from 'react'
 import { Button, TextField, Switch, FormControlLabel } from '@material-ui/core/'
 
-export function DadosPessoais({ aoEnviar, validarCpf }) {
+export function DadosPessoais({ aoEnviar, validacoes }) {
   const [nome, setNome] = useState('')
   const [sobreNome, setSobreNome] = useState('')
   const [cpf, setCpf] = useState('')
   const [promocoes, setPromocoes] = useState(true)
   const [novidades, setNovidades] = useState(false)
 
-  const [error, setErros] = useState({ cpf: { valido: true, texto: '' } })
+  const [erros, setErros] = useState({ cpf: { valido: true, texto: '' } })
 
+  function validarCampos(event) {
+    const { name, value } = event.target
+    const novoEstado = { ...erros }
+    novoEstado[name] = validacoes[name](value)
+    setErros(novoEstado)
+  }
+
+  function possoEnviar() {
+    for (let campo in erros) {
+      if (!erros[campo].valido) {
+        return false
+      }
+    }
+    return true
+  }
   return (
     <form
       onSubmit={event => {
         event.preventDefault()
-        aoEnviar({ nome, sobreNome, cpf, promocoes, novidades })
+        if (possoEnviar()) {
+          aoEnviar({ nome, sobreNome, cpf, promocoes, novidades })
+        }
       }}
     >
       <TextField
@@ -23,6 +40,7 @@ export function DadosPessoais({ aoEnviar, validarCpf }) {
           setNome(event.target.value)
         }}
         id="nome"
+        name="nome"
         label="Nome"
         variant="outlined"
         margin="normal"
@@ -35,23 +53,23 @@ export function DadosPessoais({ aoEnviar, validarCpf }) {
           setSobreNome(event.target.value)
         }}
         id="sobreNome"
+        name="sobreNome"
         label="SobreNome"
         variant="outlined"
         margin="normal"
         fullWidth
       />
+
       <TextField
         value={cpf}
         onChange={event => {
           setCpf(event.target.value)
         }}
-        onBlur={event => {
-          const ehValido = validarCpf(cpf)
-          setErros({ cpf: ehValido })
-        }}
-        error={!error.cpf.valido}
-        helperText={error.cpf.texto}
+        onBlur={validarCampos}
+        error={!erros.cpf.valido}
+        helperText={erros.cpf.texto}
         id="cpf"
+        name="cpf"
         label="CPF"
         variant="outlined"
         margin="normal"
