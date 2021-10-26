@@ -15,7 +15,8 @@ function DadosUsuario({ aoEnviar, validacoes }) {
 
   function possoEnviar() {
     for (let campo in erros) {
-      if (!erros[campo].valido) {
+      if (!erros[campo].valido)
+       {
         return false
       }
     }
@@ -62,7 +63,7 @@ function DadosUsuario({ aoEnviar, validacoes }) {
         fullWidth
       />
       <Button type="submit" variant="contained" color="primary">
-        Cadastra
+        Próximo
       </Button>
     </form>
   )

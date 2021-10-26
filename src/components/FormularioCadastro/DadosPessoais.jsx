@@ -8,7 +8,10 @@ export function DadosPessoais({ aoEnviar, validacoes }) {
   const [promocoes, setPromocoes] = useState(true)
   const [novidades, setNovidades] = useState(false)
 
-  const [erros, setErros] = useState({ cpf: { valido: true, texto: '' } })
+  const [erros, setErros] = useState({
+    cpf: { valido: true, texto: '' },
+    nome: { valido: true, texto: '' }
+  })
 
   function validarCampos(event) {
     const { name, value } = event.target
@@ -39,6 +42,9 @@ export function DadosPessoais({ aoEnviar, validacoes }) {
         onChange={event => {
           setNome(event.target.value)
         }}
+        onBlur={validarCampos}
+        error={!erros.nome.valido}
+        helperText={erros.nome.texto}
         id="nome"
         name="nome"
         label="Nome"
@@ -106,7 +112,7 @@ export function DadosPessoais({ aoEnviar, validacoes }) {
       />
 
       <Button type="submit" variant="contained" color="primary">
-        Cadastra
+        Próximo
       </Button>
     </form>
   )
