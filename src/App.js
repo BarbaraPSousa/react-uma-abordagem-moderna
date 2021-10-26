@@ -17,7 +17,7 @@ class App extends Component {
 
         <ValidacoesCadastro.Provider
           value={{ cpf: validarCpf, senha: validarSenha, nome: validarNome }}
-        > 
+        >
           <FormularioCadastro aoEnviar={aoEnviarForm} />
         </ValidacoesCadastro.Provider>
       </Container>
